@@ -1,0 +1,21 @@
+device_tracker:
+  - platform: xiaomi
+    host: !secret router_ip
+    password: !secret router_password
+    consider_home: 100
+    new_device_defaults:
+      track_new_devices: True
+      hide_if_away: False
+
+homeassistant:
+  customize_glob:
+    device_tracker.*:
+      hidden: true
+
+  customize:
+    device_tracker.xxx:
+      friendly_name: able99
+      # entity_picture: /local/res/device_tracker.xxx.jpg
+      hidden: false
+
+ 

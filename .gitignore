@@ -1,0 +1,9 @@
+# project
+.vscode
+minik-hassio-addons.code-workspace
+
+# misc
+.DS_Store
+.env
+
+

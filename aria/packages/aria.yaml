@@ -1,0 +1,93 @@
+#
+# aria
+#
+
+# aria sensor
+# ===================
+sensor:
+  - platform: aria
+    monitored_variables:
+      - 'status'
+      - 'actives'
+      - 'download_speed'
+      - 'upload_speed'
+
+# aria component
+# ===================
+aria:
+
+# input
+# ===================
+input_text:
+  aria_add_url_input:
+    name: aria_add_url_input
+    initial: ''
+
+# group
+# ===================
+group:
+  aria:
+    view: false
+    name: "aria"
+    icon: mdi:cloud-download
+    entities:
+    - sensor.aria_status
+    - sensor.aria_actives
+    - sensor.aria_dspd
+    - sensor.aria_uspd
+    - input_text.aria_add_url_input
+    - script.add_url
+
+# panel
+# ===================
+panel_iframe:
+  aria:
+    title: aria
+    icon: mdi:cloud-download
+    url: /local/aria/index.html
+
+# customize
+# ===================
+homeassistant:
+  customize:
+    sensor.aria_status:
+      friendly_name: 当前状态
+      homebridge_hidden: true
+      icon: mdi:eye
+    sensor.aria_actives:
+      friendly_name: 下载数量
+      homebridge_hidden: true
+      icon: mdi:play-circle-outline
+    sensor.aria_dspd:
+      friendly_name: 下载速度
+      homebridge_hidden: true
+      icon: mdi:speedometer
+    sensor.aria_uspd:
+      friendly_name: 上传速度
+      homebridge_hidden: true
+      icon: mdi:speedometer
+    input_text.aria_add_url_input:
+      friendly_name: 输入下载URL
+      homebridge_hidden: true
+      icon: mdi:account-edit
+    script.add_url:
+      friendly_name: 提交下载
+      homebridge_hidden: true
+      icon: mdi:send
+
+# automation and script
+# ==================
+script:
+  add_url:
+    sequence:
+      - condition: template
+        value_template: >
+          {{ states("input_text.aria_add_url_input") != "unknown" and states("input_text.aria_add_url_input") != "" }}
+      - service: aria.add_url
+        data_template:
+          url: >
+            {{ states("input_text.aria_add_url_input") }}
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.aria_add_url_input
+          value: ''

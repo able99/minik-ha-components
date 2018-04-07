@@ -1,0 +1,16 @@
+sun:
+
+weather:
+  - platform: yweather
+
+sensor:
+  - platform: moon
+
+group:
+  weather:
+    name: 天气
+    entities: 
+      - weather.yweather
+      - sun.sun
+      - sensor.moon 
+

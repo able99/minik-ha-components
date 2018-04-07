@@ -1,0 +1,87 @@
+#
+# music
+#
+
+# aria component
+# ===================
+mbox:
+  playlist_dir: ../share/data/music/playlists/
+  media_dir: ../share/data/music/media/
+  media_player: media_player.mpd
+
+media_player:
+  - platform: mpd
+    host: localhost
+
+# input
+# ==================
+input_text:
+  mbox_play_name:
+    name: 名称
+    initial: ''
+
+  mbox_play_filename:
+    name: 播放列表名称
+    initial: ''
+
+input_select:
+  mbox_play_type:
+    name: 添加类型
+    options:
+      - song
+      - artist
+      - playlist
+      - local
+
+input_boolean:
+  mbox_play_replace:
+    name: 替换或者追加播放列表
+    initial: off
+
+
+# group
+# ===================
+group:
+  music:
+    view: false
+    name: "mbox"
+    icon: mdi:music
+    control: hidden
+    entities:
+    - media_player.mpd
+    - input_text.mbox_play_name
+    - input_select.mbox_play_type
+    - input_text.mbox_play_filename
+    - input_boolean.mbox_play_replace
+    - script.mbox_play
+
+
+# panel
+# ===================
+panel_iframe:
+  music:
+    title: mbox
+    icon: mdi:music
+    url: /moped/index.html
+
+
+# automation and script
+# ==================
+script:
+  mbox_play:
+    sequence:
+      - service: mbox.play
+        data_template:
+          name: >
+            {{ states("input_text.mbox_play_name") }}
+          type: >
+            {{ states("input_select.mbox_play_type") }}
+          filename: >
+            {{ states("input_text.mbox_play_filename") }}
+          replace: >
+            {{ states("input_boolean.mbox_play_replace") }}
+      - service: input_text.set_value
+        data:
+          entity_id: input_text.mbox_play_name
+          value: ''
+
