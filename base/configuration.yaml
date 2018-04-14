@@ -1,10 +1,10 @@
 homeassistant:
-  name: Home
-  latitude: 0
-  longitude: 0
-  elevation: 0
+  name: ${name-home}
+  latitude: ${latitude-39.929986}
+  longitude: ${longitude-116.395645}
+  elevation: ${elevation-0}
   unit_system: metric
-  time_zone: Asia/Shanghai
+  time_zone: ${time_zone-Asia/Shanghai}
   customize: !include customize.yaml
   packages: !include_dir_named packages
 

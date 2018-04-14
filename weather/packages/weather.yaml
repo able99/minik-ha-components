@@ -1,10 +1,10 @@
 sun:
 
-weather:
-  - platform: yweather
-
 sensor:
   - platform: moon
+
+weather:
+  - platform: yweather
 
 group:
   weather:

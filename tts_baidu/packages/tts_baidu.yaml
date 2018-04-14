@@ -1,5 +1,5 @@
 tts:
   - platform: baidu
-    app_id: !secret baidu_app_id
-    api_key: !secret baidu_api_key
-    secret_key: !secret baidu_secret_key
+    app_id: ${baidu_app_id-xxx}
+    api_key: ${api_key-xxx}
+    secret_key: ${secret_key-xxx}

@@ -1,7 +1,7 @@
 device_tracker:
   - platform: xiaomi
-    host: !secret router_ip
-    password: !secret router_password
+    host: ${gw-192.168.1.1}
+    password: ${gw_password-admin}
     consider_home: 100
     new_device_defaults:
       track_new_devices: True
